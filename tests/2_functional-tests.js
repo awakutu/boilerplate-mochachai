@@ -43,17 +43,27 @@ suite('Functional Tests', function () {
         .end(function (err, res) {
           assert.equal(res.status, 200);
           assert.equal(res.type, 'application/json');
-         assert.equal(res.body.name, 'Cristoforo');
+          assert.equal(res.body.name, 'Cristoforo');
           assert.equal(res.body.surname, 'Colombo');
-
           done();
         });
     });
     // #4
     test('Send {surname: "da Verrazzano"}', function (done) {
-      assert.fail();
-
-      done();
+      chai
+        .request(server)
+        .put('/travellers')
+        .send({
+          "name": "Giovanni",
+          "surname": "da Verrazzano"
+        })
+        .end(function (err, res) {
+          assert.equal(res.status, 200);
+          assert.equal(res.type, 'application/json');
+          assert.equal(res.body.name, 'Giovanni');
+          assert.equal(res.body.surname, 'da Verrazzano');
+          done();
+        });
     });
   });
 });
